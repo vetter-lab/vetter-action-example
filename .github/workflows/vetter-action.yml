@@ -1,0 +1,29 @@
+name: Vetter review
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+  checks: write
+
+concurrency:
+  group: vetter-${{ github.repository }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: vetter-lab/vetter@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          model-api-key: ${{ secrets.VETTER_MODEL_API_KEY }}
+          config: |
+            review:
+              model: gpt-5.6-luna
+              baseUrl: https://supercodes.vip/v1
+              language: en
