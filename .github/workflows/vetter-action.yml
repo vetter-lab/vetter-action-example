@@ -24,6 +24,6 @@ jobs:
           model-api-key: ${{ secrets.VETTER_MODEL_API_KEY }}
           config: |
             review:
-              model: gpt-5.6-luna
+              model: gpt-5.6-terra
               baseUrl: https://supercodes.vip/v1
               language: en
